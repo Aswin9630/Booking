@@ -1,7 +1,6 @@
 import type { SignInFormData } from "./components/SignIn";
 import type { RegisterFormData } from "./components/SignUp"
-import ManageHotelForm from "./form/ManageHotelForm/ManageHotelForm";
-
+import type {  HotelType } from "../../Backend/src/model/hotelModel"
 const BACKEND_URL = import.meta.env.VITE_BACKEND_API_URL
 
 export const registerAPI = async(FormData:RegisterFormData)=>{
@@ -60,6 +59,18 @@ export const addMyHotel =async (hotelFormData:FormData)=>{
         throw new Error("Fail to add Hotel")
     }
     return response.json();
+}
+
+export async function viewHotel(): Promise<HotelType[]> {
+    const response = await fetch(`${BACKEND_URL}/api/my-hotels`, {
+        credentials: "include"
+    });
+    const responseBody = await response.json();
+    if (!response.ok) {
+        throw new Error(responseBody.message);
+    }
+
+    return responseBody.hotels;
 }
 
 export const validateToken = async ()=>{

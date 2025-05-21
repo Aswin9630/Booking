@@ -36,4 +36,16 @@ router.post("/my-hotels", verifyToken , hotelValidation,
        }
 });
 
+router.get("/my-hotels", verifyToken, async(req:Request,res:Response) => {
+    try {
+      const hotels = await Hotel.find({userId:req.userId});
+      if(hotels.length === 0){
+         res.status(200).json({message:"No Hotels Found"});
+      }
+      res.status(201).json({hotels});
+
+    } catch (error:any) {
+      res.status(500).json({message:error.message})
+    }
+})
 export default router;

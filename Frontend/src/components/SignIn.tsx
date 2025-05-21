@@ -24,8 +24,8 @@ const SignIn = () => {
     mutationFn: clientAPI.signInAPI,
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["validateToken"] });
-      showToast({ message: "Login Success", type: "SUCCESS" });
       navigate("/");
+      showToast({ message: "Login Success", type: "SUCCESS" });
     },
     onError: (error: any) => {
       showToast({ message: error.message, type: "FAILURE" });

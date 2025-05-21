@@ -6,6 +6,7 @@ import SignIn from "./SignIn";
 import SIgnUp from "./SignUp";
 import { useAppContext } from "../context/AppContext";
 import AddHotel from "../pages/AddHotel";
+import MyHotel from "../pages/MyHotel";
 
 const Body = () => {
   const { isLoggedIn } = useAppContext();
@@ -39,9 +40,13 @@ const Body = () => {
           path: "/sign-up",
           element: <SIgnUp />,
         },
-        isLoggedIn && {
+        {
           path:'/add-hotel',
-          element:<AddHotel/>
+          element: isLoggedIn ? <AddHotel/> : <SignIn/>
+        },
+        {
+          path:'/my-hotels',
+          element: isLoggedIn ? <MyHotel/> :<SignIn/>
         },
       ].filter(Boolean) as any,
     },
