@@ -6,6 +6,7 @@ import { connectDB } from "./config/mongoDB";
 import userRouter from "./routes/userRouter"
 import { v2 as cloudinary } from "cloudinary";
 import hotelRoutes from "./routes/myHotelRouter";
+import searchRoutes from "./routes/hotels";
 
 cloudinary.config({
   cloud_name:process.env.CLOUDINARY_CLOUD_NAME,
@@ -25,6 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/auth",userRouter);
 app.use("/api",hotelRoutes);
+app.use("/api/hotels",searchRoutes);
 
 const serverAndDBconnect = async () => {   
   try { 
