@@ -4,6 +4,9 @@ import TypeSection from "./TypeSection";
 import FacilitySection from "./FacilitySection";
 import GuestSection from "./GuestSection";
 import ImageSection from "./ImageSection";
+import type { HotelType } from "../../../../Backend/src/model/hotelModel";
+import { useEffect } from "react";
+import { hotelTypes } from "../../config/hotel-options-config";
 
 export type HotelformData = {
   name: string;
@@ -12,25 +15,34 @@ export type HotelformData = {
   description: string;
   type: string;
   pricePerNight: number;
-  starRating: string;
+  starRating: number;
   facilities: string[];
   imageFiles: FileList;
+  imageUrls:string[]
   adultCount: number;
   childCount: number;
 };
 
 type Props = {
+  hotel?:HotelType;
   onSave:(HotelformData:FormData)=>void;
   isLoading:boolean;
 }
 
-const ManageHotelForm = ({onSave,isLoading} : Props) => {
+const ManageHotelForm = ({onSave,isLoading, hotel} : Props) => {
   const formMethods = useForm<HotelformData>();
 
-  const { handleSubmit } = formMethods;
+  const { handleSubmit, reset } = formMethods;
+
+  useEffect(()=>{
+    reset(hotel)
+  },[hotel,reset])
 
   const onSubmit = handleSubmit((formDatajson: HotelformData) => {
     const formData = new FormData();
+    if(hotel){
+      formData.append("hotelId", hotel._id)
+    }
     formData.append("name", formDatajson.name);
     formData.append("city", formDatajson.city);
     formData.append("country", formDatajson.country);
@@ -44,6 +56,13 @@ const ManageHotelForm = ({onSave,isLoading} : Props) => {
     formDatajson.facilities.forEach((facility,index)=>{
       formData.append(`facilities[${index}]`,facility)
     })
+
+    if(formDatajson.imageUrls){
+      formDatajson.imageUrls.forEach((url,index)=>{
+        formData.append(`imageUrls[${index}]`, url);
+      })
+    }
+
     Array.from(formDatajson.imageFiles).forEach((imageFile)=>{
       formData.append('imageFiles',imageFile);
     })
@@ -53,7 +72,7 @@ const ManageHotelForm = ({onSave,isLoading} : Props) => {
 
   return (
     <FormProvider {...formMethods}>
-      <form className="flex flex-col gap-7" onSubmit={onSubmit}>
+      <form className="flex flex-col gap-7 container p-5 md:mx-auto" onSubmit={onSubmit}>
         <DetailsSection />
         <TypeSection />
         <FacilitySection />
