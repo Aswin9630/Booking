@@ -120,11 +120,12 @@ export const searchhotels = async (searchParams:SearchParams):Promise<HotelSearc
     queryParams.append("page", searchParams.page || "");
 
     const response = await fetch(`${BACKEND_URL}/api/hotels/search?${queryParams}`)
+     const responseBody =await  response.json();     
     if(!response.ok){
         throw new Error("Error fetching hotels")
-    }
+    } 
 
-    return response.json();
+    return responseBody.response;
 }
 
 export const validateToken = async ()=>{
@@ -137,4 +138,4 @@ export const validateToken = async ()=>{
     }
 
     return response.json()
-} 
+}  
