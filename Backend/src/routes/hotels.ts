@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import Hotel from "../model/hotelModel";
-import { hotelSearchResponse } from "../shared/types";
+import { HotelSearchResponse } from "../shared/types";
 const router = express.Router();
 
 router.get("/search", async (req: Request, res: Response) => {
@@ -11,7 +11,7 @@ router.get("/search", async (req: Request, res: Response) => {
   const hotels = await Hotel.find().skip(skip).limit(pageSize);
   const total = await Hotel.countDocuments();
 
-  const response:hotelSearchResponse = {
+  const response:HotelSearchResponse = {
     data: hotels,
     pagination: {
       total,

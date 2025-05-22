@@ -1,6 +1,7 @@
 import type { SignInFormData } from "./components/SignIn";
 import type { RegisterFormData } from "./components/SignUp"
 import type {  HotelType } from "../../Backend/src/model/hotelModel"
+import type {HotelSearchResponse} from "../../Backend/src/shared/types"
 const BACKEND_URL = import.meta.env.VITE_BACKEND_API_URL
 
 export const registerAPI = async(FormData:RegisterFormData)=>{
@@ -99,6 +100,31 @@ export const updateMyHotelById = async(hotelFormData:FormData)=>{
     }
 
     return responseBody;
+}
+
+type SearchParams = {
+    destination?:string;
+    checkIn?:string;
+    checkOut?:string;
+    adultCount?:string;
+    childCount?:string;
+    page?:string;
+}
+export const searchhotels = async (searchParams:SearchParams):Promise<HotelSearchResponse>=>{
+    const queryParams = new URLSearchParams();
+    queryParams.append("destination", searchParams.destination || "");
+    queryParams.append("checkIn", searchParams.checkIn || "");
+    queryParams.append("checkOut", searchParams.checkOut || "");
+    queryParams.append("adultCount", searchParams.adultCount || "");
+    queryParams.append("childCount", searchParams.childCount || "");
+    queryParams.append("page", searchParams.page || "");
+
+    const response = await fetch(`${BACKEND_URL}/api/hotels/search?${queryParams}`)
+    if(!response.ok){
+        throw new Error("Error fetching hotels")
+    }
+
+    return response.json();
 }
 
 export const validateToken = async ()=>{

@@ -16,7 +16,7 @@ export type HotelType = {
 };
 
 
-export type hotelSearchResponse = {
+export type HotelSearchResponse = {
     data:HotelType[];
     pagination : {
         total:number;

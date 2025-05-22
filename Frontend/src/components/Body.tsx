@@ -3,11 +3,13 @@ import Footer from "./Footer";
 import Header from "./Header";
 import Home from "./Home";
 import SignIn from "./SignIn";
-import SIgnUp from "./SignUp";
+import SignUp from "./SignUp";
 import { useAppContext } from "../context/AppContext";
 import AddHotel from "../pages/AddHotel";
 import MyHotel from "../pages/MyHotel";
 import EditHotel from "../pages/EditHotel";
+import SearchBar from "./SearchBar";
+import Search from "../pages/Search";
 
 const Body = () => {
   const { isLoggedIn } = useAppContext();
@@ -16,6 +18,7 @@ const Body = () => {
     return (
       <div className="flex flex-col min-h-screen">
         <Header />
+        <SearchBar/>
         <div className="flex-grow">
           <Outlet />
         </div>
@@ -39,7 +42,11 @@ const Body = () => {
         },
         {
           path: "/sign-up",
-          element: <SIgnUp />,
+          element: <SignUp />,
+        },
+        {
+          path: "/search",
+          element: <Search />,
         },
         {
           path:'/add-hotel',
