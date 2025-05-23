@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import Hotel from "../model/hotelModel";
 import { HotelSearchResponse } from "../shared/types";
+import { param, validationResult } from "express-validator";
 const router = express.Router();
 
 router.get("/search", async (req: Request, res: Response) => {
@@ -43,6 +44,22 @@ router.get("/search", async (req: Request, res: Response) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+router.get("/:id",[
+  param("id").notEmpty().withMessage("ID is required")
+],async(req:Request, res:Response):Promise<any>=>{
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(400).json({errors:errors.array()})
+  }
+  const id = req.params.id.toString();
+  try {
+    const hotel = await Hotel.findById(id);
+    res.status(200).json(hotel);
+  } catch (error:any){
+    console.error(error.message)
+  }
+})
 
 const constructSearchQuery = (queryParams: any) => {
   let constructedQuery: any = {};

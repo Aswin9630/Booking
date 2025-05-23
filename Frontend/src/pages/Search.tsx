@@ -23,11 +23,10 @@ const Search = () => {
     adultCount: search.adultCount.toString(),
     childCount: search.childCount.toString(),
     page: page.toString(),
-    stars:selectedStars,
-    types:selectedHotelType,
-    facilities:selectedFacilities,
-    sortOptions
-
+    stars: selectedStars,
+    types: selectedHotelType,
+    facilities: selectedFacilities,
+    sortOptions,
   };
 
   const { data: hotelData } = useQuery({
@@ -45,7 +44,9 @@ const Search = () => {
     );
   };
 
-  const handleHotelTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleHotelTypeChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const hotelType = event.target.value;
 
     setSelectedHotelType((prevHotelTypes) =>
@@ -65,15 +66,26 @@ const Search = () => {
   };
 
   return (
-    <div className="mt-5 grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5 mx-auto container px-6 md:px-10">
+    <div className="mt-5 grid grid-cols-1 md:grid-cols-[250px_1fr] gap-5 mx-auto container px-6 md:px-10">
       <div className="bg-white rounded-b-lg border border-slate-300 p-5 h-fit md:sticky top-0">
         <div className="space-y-5">
           <h3 className="text-lg font-semibold border-b border-slate-300 pb-5">
             Filter By:
           </h3>
-          <StarRatingFilter selectedStars={selectedStars} onChange={handleStarChange}/>
-          <HotelTypesFilter selectedHotelType={selectedHotelType} onChange={handleHotelTypeChange}/>
-          <FacilitiesFilter selectedFacilities={selectedFacilities} onChange={handleFacilityChange}/>
+          <div>
+            <StarRatingFilter
+              selectedStars={selectedStars}
+              onChange={handleStarChange}
+            />
+            <HotelTypesFilter
+              selectedHotelType={selectedHotelType}
+              onChange={handleHotelTypeChange}
+            />
+            <FacilitiesFilter
+              selectedFacilities={selectedFacilities}
+              onChange={handleFacilityChange}
+            />
+          </div>
         </div>
       </div>
 
@@ -83,11 +95,15 @@ const Search = () => {
             {hotelData?.pagination?.total} Hotels found
             {search.destination ? ` in ${search.destination}` : ""}
           </span>
-          <select value={sortOptions} onChange={(e)=>setSortOptions(e.target.value)} className="p-2 border rounded-md">
-            <option value="">Sort By</option>
-            <option value="starRating">Star Rating</option>
-            <option value="pricePerNightAsc">Price(low to high)</option>
-            <option value="pricePerNightDesc">Price(high to low)</option>
+          <select
+            value={sortOptions}
+            onChange={(e) => setSortOptions(e.target.value)}
+            className="p-2 border rounded-md text-gray-800"
+          >
+            <option className="cursor-pointer font-semibold " value="">Sort By</option>
+            <option className="cursor-pointer font-semibold " value="starRating">Star Rating</option>
+            <option className="cursor-pointer font-semibold " value="pricePerNightAsc">Price(low to high)</option>
+            <option className="cursor-pointer font-semibold " value="pricePerNightDesc">Price(high to low)</option>
           </select>
         </div>
         {(hotelData?.data ?? []).map((hotel) => (
@@ -96,7 +112,7 @@ const Search = () => {
 
         <div>
           <Pagination
-          total={hotelData?.pagination?.total || 1 }
+            total={hotelData?.pagination?.total || 1}
             page={hotelData?.pagination?.page || 1}
             pages={hotelData?.pagination?.pages || 1}
             onPageChange={(page) => setPage(page)}

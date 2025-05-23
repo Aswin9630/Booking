@@ -48,6 +48,18 @@ export const SignOutAPI = async () => {
   }
 };
 
+export const validateToken = async () => {
+  const response = await fetch(`${BACKEND_URL}/auth/verifyToken`, {
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Token Invalid");
+  }
+
+  return response.json();
+};
+
 export const addMyHotel = async (hotelFormData: FormData) => {
   const response = await fetch(`${BACKEND_URL}/api/my-hotels`, {
     method: "POST",
@@ -117,6 +129,7 @@ type SearchParams = {
   maxPrice?: string;
   sortOptions?: string;
 };
+
 export const searchhotels = async (
   searchParams: SearchParams
 ): Promise<HotelSearchResponse> => {
@@ -153,14 +166,13 @@ export const searchhotels = async (
   return responseBody.response;
 };
 
-export const validateToken = async () => {
-  const response = await fetch(`${BACKEND_URL}/auth/verifyToken`, {
-    credentials: "include",
-  });
-
-  if (!response.ok) {
-    throw new Error("Token Invalid");
+export const fetchhotelById = async(hotelId:string):Promise<HotelType>=>{
+  const response = await fetch(`${BACKEND_URL}/api/hotels/${hotelId}`)
+  const responseBody = await response.json();
+  if(!response.ok){
+    throw new Error("Error fetching hotel details");
   }
 
-  return response.json();
-};
+  return responseBody;
+}
+

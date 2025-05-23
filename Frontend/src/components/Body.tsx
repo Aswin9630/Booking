@@ -10,6 +10,7 @@ import MyHotel from "../pages/MyHotel";
 import EditHotel from "../pages/EditHotel";
 import SearchBar from "./SearchBar";
 import Search from "../pages/Search";
+import HotelDetails from "../pages/HotelDetails";
 
 const Body = () => {
   const { isLoggedIn } = useAppContext();
@@ -47,6 +48,10 @@ const Body = () => {
         {
           path: "/search",
           element: <Search />,
+        },
+        {
+          path: "/detail/:hotelId",
+          element: <HotelDetails />,
         },
         {
           path:'/add-hotel',
