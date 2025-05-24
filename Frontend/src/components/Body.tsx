@@ -1,25 +1,28 @@
-import { createBrowserRouter, Outlet, RouterProvider, type RouteObject } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Outlet,
+  RouterProvider,
+} from "react-router-dom";
 import Footer from "./Footer";
 import Header from "./Header";
 import Home from "./Home";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
-import { useAppContext } from "../context/AppContext";
 import AddHotel from "../pages/AddHotel";
 import MyHotel from "../pages/MyHotel";
 import EditHotel from "../pages/EditHotel";
 import SearchBar from "./SearchBar";
 import Search from "../pages/Search";
 import HotelDetails from "../pages/HotelDetails";
+import ProtectedRoute from "./ProtectedRoute";
 
 const Body = () => {
-  const { isLoggedIn } = useAppContext();
 
   const AppLayout = () => {
     return (
       <div className="flex flex-col min-h-screen">
         <Header />
-        <SearchBar/>
+        <SearchBar />
         <div className="flex-grow">
           <Outlet />
         </div>
@@ -54,16 +57,21 @@ const Body = () => {
           element: <HotelDetails />,
         },
         {
-          path:'/add-hotel',
-          element: isLoggedIn ? <AddHotel/> : <SignIn/>
-        },
-        {
-          path:'/my-hotels',
-          element: isLoggedIn ? <MyHotel/> :<SignIn/>
-        },
-        {
-          path:'/edit-hotel/:hotelId',
-          element: isLoggedIn ? <EditHotel /> :<SignIn/>
+          element: <ProtectedRoute />,
+          Children: [
+            {
+              path: "/add-hotel",
+              element: <AddHotel /> ,
+            },
+            {
+              path: "/my-hotels",
+              element: <MyHotel /> ,
+            },
+            {
+              path: "/edit-hotel/:hotelId",
+              element: <EditHotel /> ,
+            },
+          ],
         },
       ].filter(Boolean) as any,
     },
