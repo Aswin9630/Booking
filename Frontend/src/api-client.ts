@@ -1,7 +1,7 @@
 import type { SignInFormData } from "./components/SignIn";
 import type { RegisterFormData } from "./components/SignUp";
 import type { HotelType } from "../../Backend/src/model/hotelModel";
-import type { HotelSearchResponse } from "../../Backend/src/shared/types";
+import type { HotelSearchResponse, UserType } from "../../Backend/src/shared/types";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_API_URL;
 
 export const registerAPI = async (FormData: RegisterFormData) => {
@@ -36,6 +36,17 @@ export const signInAPI = async (FormData: SignInFormData) => {
 
   return responseBody;
 };
+
+export const getUserProfile = async():Promise<UserType>=>{
+  const response= await fetch(`${BACKEND_URL}/auth/profile`, {
+    credentials:"include"
+  })
+  if(!response.ok){
+    throw new Error("Error fetching user details");
+  }
+  const responseBody = await response.json();
+  return responseBody;
+}
 
 export const SignOutAPI = async () => {
   const response = await fetch(`${BACKEND_URL}/auth/logout`, {
@@ -157,7 +168,6 @@ export const searchhotels = async (
     `${BACKEND_URL}/api/hotels/search?${queryParams}`
   );
   const responseBody = await response.json();
-  console.log(responseBody?.response);
   
   if (!response.ok) {
     throw new Error("Error fetching hotels");

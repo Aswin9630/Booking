@@ -71,6 +71,17 @@ router.post(
   }
 ); 
 
+router.get("/profile", verifyToken, async(req:Request, res:Response):Promise<any>=>{
+  try {
+    const userId = req.userId;
+    const user = await User.findById(userId).select("-password");
+    if(!user) return res.status(400).json({message:"User not found"})
+      res.status(200).json(user);
+  } catch (error:any) {
+    res.status(500).json({message:error.message})
+  }
+})
+
 router.post("/logout", (req: Request, res: Response) => {
   res.cookie("accessToken", "", { expires: new Date(0) });
   res.status(200).json({ success: true, message: "Logout Successfully" });

@@ -15,6 +15,7 @@ import SearchBar from "./SearchBar";
 import Search from "../pages/Search";
 import HotelDetails from "../pages/HotelDetails";
 import ProtectedRoute from "./ProtectedRoute";
+import Booking from "../pages/Booking";
 
 const Body = () => {
 
@@ -58,10 +59,14 @@ const Body = () => {
         },
         {
           element: <ProtectedRoute />,
-          Children: [
+          children: [
             {
               path: "/add-hotel",
               element: <AddHotel /> ,
+            },
+            {
+              path: "/hotel/:hotelId/booking",
+              element: <Booking /> ,
             },
             {
               path: "/my-hotels",

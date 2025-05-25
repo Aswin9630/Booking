@@ -50,7 +50,7 @@ const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
       data.adultCount,
       data.childCount
     );
-    navigate("/sign-in", {state:{from:location}})
+    navigate("/sign-in", { state: { from: location } });
   };
   const handleOnSubmit = (data: GuestInfoFormData) => {
     search.saveSearchValues(
@@ -60,13 +60,17 @@ const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
       data.adultCount,
       data.childCount
     );
-    navigate(`/hotel/${hotelId}/booking`)
+    navigate(`/hotel/${hotelId}/booking`);
   };
 
   return (
     <div className="flex flex-col p-4 bg-black gap-4">
       <h3 className="text-xl font-bold text-white">₹{pricePerNight}</h3>
-      <form onSubmit={isLoggedIn?handleSubmit(handleOnSubmit) :handleSubmit(handleSignIn)}>
+      <form
+        onSubmit={
+          isLoggedIn ? handleSubmit(handleOnSubmit) : handleSubmit(handleSignIn)
+        }
+      >
         <div className="grid grid-cols-1 gap-4 items-center">
           <div>
             <DatePicker
