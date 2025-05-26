@@ -1,8 +1,10 @@
 import { useForm } from "react-hook-form";
-import type { UserType } from "../../../Backend/src/shared/types"
+import type { PaymentIntentResponse, UserType } from "../../../Backend/src/shared/types"
+import { CardElement } from "@stripe/react-stripe-js";
 
 type Props = {
-    currentUser:UserType
+    currentUser:UserType;
+    paymentIntent:PaymentIntentResponse
 }
 
 type BookingFormData = {
@@ -11,7 +13,7 @@ type BookingFormData = {
     email:string;
 }
 
-const BookingForm = ({currentUser}:Props) => {
+const BookingForm = ({currentUser, paymentIntent}:Props) => {
     const {register, handleSubmit} = useForm<BookingFormData>({
         defaultValues:{
             firstName:currentUser.firstName,
@@ -37,6 +39,23 @@ const BookingForm = ({currentUser}:Props) => {
                 <input className="mt-1 border border-gray-400 rounded w-full py-2 px-3 text-gray-700 font-normal" type="text" readOnly disabled {...register("email")}/>
             </label>
         </div>
+
+        <div className="space-y-2">
+            <h2 className="text-xl text-center md:text-2xl font-bold">Your Price Summary</h2>
+
+            <div className="bg-gray-200 p-4 rounded">
+                <div className="font-semibold text-lg">
+                    Total Cost: ₹{paymentIntent.totalCost.toFixed(2)}
+                </div>
+                <div className="text-xs">Includes taxes & charges</div>
+            </div>
+        </div>
+
+        <div className="space-y-2">
+            <h3 className="text-xl font-semibold">Payment Details</h3>
+            <CardElement id="payment-element" className="border rounded p-2 text-sm"/>
+        </div>
+
     </form>
   )
 }

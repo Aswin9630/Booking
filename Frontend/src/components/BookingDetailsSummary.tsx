@@ -17,7 +17,7 @@ const BookingDetailsSummary = ({checkIn,checkOut,adultCount,childCount,numberOfN
             Location:
             <div className="font-semibold">{` ${hotel?.name}, ${hotel?.city}, ${hotel?.country}`}</div>
         </div>
-        <div className="flex justify-between">
+        <div className="flex justify-between gap-3 md:gap-2">
             <div>
                 Check-In:
                 <div className="font-semibold">{checkIn.toDateString()}</div>

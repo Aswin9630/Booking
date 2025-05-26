@@ -1,7 +1,7 @@
 import type { SignInFormData } from "./components/SignIn";
 import type { RegisterFormData } from "./components/SignUp";
 import type { HotelType } from "../../Backend/src/model/hotelModel";
-import type { HotelSearchResponse, UserType } from "../../Backend/src/shared/types";
+import type { HotelSearchResponse, PaymentIntentResponse, UserType } from "../../Backend/src/shared/types";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_API_URL;
 
 export const registerAPI = async (FormData: RegisterFormData) => {
@@ -185,4 +185,21 @@ export const fetchhotelById = async(hotelId:string):Promise<HotelType>=>{
 
   return responseBody;
 }
+
+export const createPaymentIntent = async(hotelId:string, numberOfNight:string):Promise<PaymentIntentResponse> =>{
+  const response = await fetch(`${BACKEND_URL}/api/hotels/${hotelId}/bookings/payment-intent` , {
+    credentials:"include",
+    method:"POST",
+    body:JSON.stringify({numberOfNight}),
+    headers:{
+      "Content-Type":"application/json"
+    }
+  }) 
+  if(!response.ok){
+    throw new Error("Error creating payment intent")
+  }
+  const responseBody = await response.json();
+  return responseBody;
+}
+
 
