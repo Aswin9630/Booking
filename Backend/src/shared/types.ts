@@ -25,6 +25,8 @@ export type HotelType = {
 };
 
 
+
+
 export type HotelSearchResponse = {
     data:HotelType[];
     pagination : {
@@ -32,4 +34,10 @@ export type HotelSearchResponse = {
         page:number;
         pages:number;
     }
+}
+
+export type PaymentIntentResponse = {
+  paymentIntentId:string;
+  clientSecret:string;
+  totalCost:number;
 }
