@@ -99,8 +99,8 @@ export const fetchMyHotelsById = async (
   hotelId: string
 ): Promise<HotelType> => {
   const response = await fetch(`${BACKEND_URL}/api/my-hotels/${hotelId}`, {
-    credentials: "include",
     method: "GET",
+    credentials: "include",
   });
   const responseBody = await response.json();
   if (!response.ok) {

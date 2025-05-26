@@ -32,13 +32,13 @@ router.post(
   }
 );
 
-router.get("/my-hotels", verifyToken, async (req: Request, res: Response) => {
+router.get("/my-hotels", verifyToken, async (req: Request, res: Response):Promise<any> => {
   try {
     const hotels = await Hotel.find({ userId: req.userId });
     if (hotels.length === 0) {
-      res.status(200).json({ message: "No Hotels Found" });
+      return res.status(200).json({ message: "No Hotels Found" });
     }
-    res.status(201).json({ hotels });
+    res.status(201).json(hotels );
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
@@ -50,11 +50,8 @@ router.get(
   async (req: Request, res: Response) => {
     const id = req.params.id.toString();
     try {
-      const hotels = await Hotel.findOne({
-        _id: id,
-        userId: req.userId,
-      });
-
+      const hotels = await Hotel.findById({_id:id,userId:req.userId});      
+ 
       res.status(201).json(hotels);
     } catch (error: any) {
       res.status(500).json({ message: error.message });
