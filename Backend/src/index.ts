@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/auth",userRouter);
-app.use("/api",hotelRoutes);
+app.use("/api/my-hotels",hotelRoutes);
 app.use("/api/hotels",searchRoutes); 
 app.use("/api/my-bookings",bookingRoutes); 
 
