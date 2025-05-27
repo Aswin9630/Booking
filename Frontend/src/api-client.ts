@@ -2,6 +2,7 @@ import type { SignInFormData } from "./components/SignIn";
 import type { RegisterFormData } from "./components/SignUp";
 import type { HotelType } from "../../Backend/src/model/hotelModel";
 import type { HotelSearchResponse, PaymentIntentResponse, UserType } from "../../Backend/src/shared/types";
+import type { BookingFormData } from "./form/BookingForm";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_API_URL;
 
 export const registerAPI = async (FormData: RegisterFormData) => {
@@ -92,7 +93,7 @@ export async function viewHotel(): Promise<HotelType[]> {
     throw new Error(responseBody.message);
   }
 
-  return responseBody.hotels;
+  return responseBody;
 }
 
 export const fetchMyHotelsById = async (
@@ -203,3 +204,20 @@ export const createPaymentIntent = async(hotelId:string, numberOfNight:string):P
 }
 
 
+export const createRoombooking = async(formData:BookingFormData)=>{
+  const response = await fetch(`${BACKEND_URL}/api/hotels/${formData.hotelId}/bookings` , {
+    method:"POST",
+    credentials:"include",
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify(formData)
+  })
+
+  const responseBody = await response.json()
+  if(!response.ok){
+    throw new Error( responseBody.message || "Room Booking Failed")
+  }
+
+  return responseBody;
+}

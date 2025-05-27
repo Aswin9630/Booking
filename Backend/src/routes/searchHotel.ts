@@ -1,12 +1,10 @@
 import express, { Request, Response } from "express";
 import Hotel from "../model/hotelModel";
-import {
-  BookingType,
-  HotelSearchResponse,
-} from "../shared/types";
+import { BookingType, HotelSearchResponse } from "../shared/types";
 import { param, validationResult } from "express-validator";
 import Stripe from "stripe";
 import verifyToken from "../middleware/verifyToken";
+import User from "../model/userModel";
 const router = express.Router();
 
 const stripe = new Stripe(process.env.STRIPE_API_KEY as string);
@@ -86,13 +84,32 @@ router.post(
         return res.status(400).json("Hotel not found");
       }
 
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(400).json("User not found");
+      }
+
       const totalCost = hotel.pricePerNight * numberOfNight;
       const paymentIntent = await stripe.paymentIntents.create({
-        amount: totalCost,
-        currency: "inr",
+        amount: totalCost * 100,
+        currency: "INR",
+        description: "Booking room at NextStay.com",
         metadata: {
           hotelId,
           userId,
+        },
+        shipping: {
+          name: user?.firstName,
+          address: {
+            line1: "123 Default Street",
+            city: "Your City",
+            state: "Your State",
+            postal_code: "000000",
+            country: "IN",
+          },
+        },
+        automatic_payment_methods: {
+          enabled: true,
         },
       });
 
@@ -136,11 +153,9 @@ router.post(
         return res.status(400).json({ message: "Payment intent mismatch" });
       }
       if (paymentIntent.status !== "succeeded") {
-        return res
-          .status(400)
-          .json({
-            message: `Payment intent not succeeded, Status: ${paymentIntent.status}`,
-          });
+        return res.status(400).json({
+          message: `Payment intent not succeeded, Status: ${paymentIntent.status}`,
+        });
       }
 
       const newBooking: BookingType = {
@@ -153,13 +168,13 @@ router.post(
         { $push: { bookings: newBooking } }
       );
 
-      if(!hotel){ 
-        return res.status(400).json({message:"Hotel not found"});
+      if (!hotel) {
+        return res.status(400).json({ message: "Hotel not found" });
       }
       await hotel.save();
 
-      res.status(200).send()
-
+      res.status(200).json({ message: "Booking saved successfully" }); 
+      
     } catch (error) {
       res.status(500).json({ message: "Something went wrong" });
     }
