@@ -16,6 +16,7 @@ import Search from "../pages/Search";
 import HotelDetails from "../pages/HotelDetails";
 import ProtectedRoute from "./ProtectedRoute";
 import Booking from "../pages/Booking";
+import MyBookings from "../pages/MyBookings";
 
 const Body = () => {
 
@@ -71,6 +72,10 @@ const Body = () => {
             {
               path: "/my-hotels",
               element: <MyHotel /> ,
+            },
+            {
+              path: "/my-bookings",
+              element: <MyBookings /> ,
             },
             {
               path: "/edit-hotel/:hotelId",
