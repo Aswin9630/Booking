@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import * as clientAPI from "../api-client";
 import { useAppContext } from "../context/AppContext";
 
@@ -18,14 +18,16 @@ const SignIn = () => {
 
   const { showToast } = useAppContext();
   const navigate = useNavigate();
+  const location = useLocation()
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: clientAPI.signInAPI,
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["validateToken"] });
-      navigate("/");
       showToast({ message: "Login Success", type: "SUCCESS" });
+      await queryClient.invalidateQueries({ queryKey: ["validateToken"] });
+      await queryClient.refetchQueries({ queryKey: ["validateToken"] });
+      navigate(location.state?.from?.pathname || "/");
     },
     onError: (error: any) => {
       showToast({ message: error.message, type: "FAILURE" });

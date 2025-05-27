@@ -28,6 +28,7 @@ const SIgnUp = () => {
     onSuccess: async () => {
       showToast({ message: "Registration Successfull", type: "SUCCESS" });
       await queryClient.invalidateQueries({ queryKey: ["validateToken"] });
+      await queryClient.refetchQueries({ queryKey: ["validateToken"] });
       navigate("/");
     },
     onError: (error: any) => {

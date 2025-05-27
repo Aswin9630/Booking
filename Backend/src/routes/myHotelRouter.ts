@@ -7,7 +7,7 @@ import { hotelValidation } from "../utils/Validation";
 const router = express.Router();
 
 router.post(
-  "/my-hotels",
+  "/",
   verifyToken,
   hotelValidation,
   upload.array("imageFiles", 6),
@@ -32,7 +32,7 @@ router.post(
   }
 );
 
-router.get("/my-hotels", verifyToken, async (req: Request, res: Response):Promise<any> => {
+router.get("/", verifyToken, async (req: Request, res: Response):Promise<any> => {
   try {
     const hotels = await Hotel.find({ userId: req.userId });
     if (hotels.length === 0) {
@@ -45,7 +45,7 @@ router.get("/my-hotels", verifyToken, async (req: Request, res: Response):Promis
 });
 
 router.get(
-  "/my-hotels/:id",
+  "/:id",
   verifyToken,
   async (req: Request, res: Response) => {
     const id = req.params.id.toString();
@@ -60,7 +60,7 @@ router.get(
 );
 
 router.put(
-  "/my-hotels/:hotelId",
+  "/:hotelId",
   verifyToken,
   upload.array("imageFiles"),
   async (req: Request, res: Response): Promise<any> => {

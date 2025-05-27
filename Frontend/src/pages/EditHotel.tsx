@@ -2,9 +2,11 @@ import { useParams } from "react-router-dom"
 import ManageHotelForm from "../form/ManageHotelForm/ManageHotelForm"
 import { useMutation, useQuery } from "@tanstack/react-query";
 import * as apiClient from "../api-client"
+import { useAppContext } from "../context/AppContext";
 
 const EditHotel = () => {
     const {hotelId} = useParams();
+    const {showToast} = useAppContext()
 
     const {data:hotel} = useQuery({
         queryKey:["fetchMyHotelById"],
@@ -14,8 +16,10 @@ const EditHotel = () => {
 
     const { mutate , isPending} = useMutation({
         mutationFn:apiClient.updateMyHotelById,
-        onSuccess:()=>{},
-        onError:()=>{},
+         onSuccess:()=>{
+    },
+    onError:()=>{
+    }
     })
 
     const handleSave = (hotelFormData:FormData)=>{
@@ -28,7 +32,7 @@ const EditHotel = () => {
 
      
 
-  return (
+  return ( 
    <ManageHotelForm hotel={hotel} onSave={handleSave} isLoading={isPending}/>
   )
 }

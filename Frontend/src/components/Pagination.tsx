@@ -1,4 +1,5 @@
 type Props = {
+  total:number;
   page: number;
   pages: number;
   onPageChange: (page: number) => void;
@@ -15,7 +16,7 @@ const Pagination = ({ page, pages, onPageChange }: Props) => {
     <div className="flex justify-center mb-2">
       <ul className="flex border border-slate-300 rounded ">
         {pageNumbers.map((number) => (
-          <li className={`px-2 py-1 ${page === number ? "bg-gray-200" : " "}`}>
+          <li key={number} className={`px-2 py-1 ${page === number ? "bg-gray-200" : " "}`}>
             <button className="cursor-pointer" onClick={() => onPageChange(number)}>{number}</button>
           </li>
         ))}

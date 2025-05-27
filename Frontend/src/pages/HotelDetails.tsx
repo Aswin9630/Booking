@@ -24,20 +24,20 @@ const HotelDetails = () => {
                     <AiFillStar className="fill-yellow-400"/>
                 ))}
             </span>
-            <h1 className="text-2xl font-bold">{hotel.name}</h1>          
+            <h1 className="text-2xl font-bold ">{hotel.name}</h1>          
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {hotel.imageUrls.map((image)=>(
-                <div className="h-[300px">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-5">
+            {hotel.imageUrls.map((image,index)=>(
+                <div key={index} className="h-[300px] w-[250px] p-5">
                     <img src={image} alt={hotel.name} className="rounded-md w-full h-full object-cover object-center"/>
                 </div>
             ))}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-2 mt-5 text-center text-gray-700 font-semibold">
-            {hotel.facilities.map((facility)=>(
-                <div className="border border-slate-300 rounded-sm p-3">{facility}</div>
+            {hotel.facilities.map((facility,index)=>(
+                <div key={index} className="border border-slate-300 rounded-sm p-3">{facility}</div>
             ))}
         </div>
 

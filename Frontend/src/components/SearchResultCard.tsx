@@ -8,7 +8,7 @@ type Props = {
 
 const SearchResultCard = ({ hotel }: Props) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[2fr_3fr] rounded-lg border border-slate-300 p-8 gap-8">
+    <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] rounded-lg border border-slate-300 p-8 gap-8">
       <div className="w-full h-auto md:h-[300px] border border-slate-300 p-3 rounded-sm shadow-md">
         <img
           src={hotel.imageUrls[0]}
@@ -21,22 +21,22 @@ const SearchResultCard = ({ hotel }: Props) => {
           <div className="flex items-center">
             <span className="flex">
               {Array.from({ length: hotel.starRating }).map(() => (
-                <AiFillStar className="text-yellow-400" />
+                <AiFillStar  className="text-yellow-400" />
               ))}
             </span>
             <span className="ml-1 text-sm">{hotel.type}</span>
           </div>
-          <Link to={`/detail/${hotel._id}`} className="text-2xl font-bold cursor-pointer">{hotel.name}</Link>
+          <Link to={`/detail/${hotel._id}`} className="text-xl md:text-2xl font-bold cursor-pointer">{hotel.name}</Link>
         </div>
 
         <div>
-          <div className="line-clamp-4">{hotel.description}</div>
+          <div className="line-clamp-4 text-sm md:text-lg">{hotel.description}</div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 items-end whitespace-nowrap gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-end whitespace-nowrap gap-4">
           <div className="flex gap-1 items-center">
             {hotel.facilities.slice(0, 3).map((facility) => (
-              <span className="bg-slate-200 p-2 rounded-lg font-semibold text-xs whitespace-nowrap">
+              <span key={facility} className="bg-slate-200 p-2 rounded-lg font-semibold text-xs whitespace-nowrap">
                 {facility}
               </span>
             ))}

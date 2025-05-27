@@ -55,6 +55,7 @@ const Search = () => {
         : prevHotelTypes.filter((type) => type !== hotelType)
     );
   };
+  
   const handleFacilityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const facilities = event.target.value;
 
@@ -98,7 +99,7 @@ const Search = () => {
           <select
             value={sortOptions}
             onChange={(e) => setSortOptions(e.target.value)}
-            className="p-2 border rounded-md text-gray-800"
+            className="p-2 border rounded-md text-gray-800 cursor-pointer"
           >
             <option className="cursor-pointer font-semibold " value="">Sort By</option>
             <option className="cursor-pointer font-semibold " value="starRating">Star Rating</option>

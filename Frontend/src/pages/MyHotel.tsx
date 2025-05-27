@@ -18,7 +18,7 @@ const MyHotel = () => {
     );
   }
 
-  return (
+  return hotelData && (
     <div className="space-y-5 mx-auto container my-3 md:my-5">
       <span className="flex justify-around">
         <h1 className="text-xl md:text-3xl font-bold mb-3">My Hotels</h1>

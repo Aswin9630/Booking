@@ -70,7 +70,7 @@ router.post(
     }
   }
 ); 
-
+ 
 router.get("/profile", verifyToken, async(req:Request, res:Response):Promise<any>=>{
   try {
     const userId = req.userId;
