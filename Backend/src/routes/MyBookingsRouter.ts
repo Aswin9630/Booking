@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import verifyToken from "../middleware/verifyToken";
 import Hotel from "../model/hotelModel";
-import { HotelType } from "../shared/types";
+import { HotelType } from "../../../shared/types";
 const router = express.Router();
 
 router.get("/", verifyToken, async (req: Request, res: Response):Promise<any> => {

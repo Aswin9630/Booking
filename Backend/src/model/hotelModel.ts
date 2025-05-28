@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import type{ BookingType } from "../shared/types";
+import type { BookingType } from "../../../shared/types";
 
 export type HotelType = {
   _id?: string;
