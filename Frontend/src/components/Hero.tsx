@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
+import heroImg1 from "../assets/heroImg1.jpg"
+import heroImg2 from "../assets/heroImg2.jpg"
+import heroImg3 from "../assets/heroImg3.jpg"
+import heroImg4 from "../assets/heroImg4.jpg"
+import heroImg5 from "../assets/heroImg5.jpg"
 
 const Hero = () => {
 
-  const images = [
-    "https://www.a3qube.com/ex-image/HD-918-BEDROOM.jpg",
-    "https://homeydesign.com/wp-content/uploads/HD-901-BEDROOM.jpg",
-    "https://img.freepik.com/premium-photo/beautiful-evening-hotel-arabic-egypt-sharm-el-sheikh_121943-1393.jpg",
-    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/e9/24/c0/steigenberger-aqua-magic.jpg?w=1200&h=-1&s=1"
-  ]
+  const images = [heroImg1,heroImg2,heroImg3,heroImg4,heroImg5]
 
   const [active,setActive] = useState(0);
 
