@@ -8,7 +8,7 @@ import BookingDetailsSummary from "../components/BookingDetailsSummary";
 import Spinner from "../components/Spinner";
 import { Elements } from "@stripe/react-stripe-js";
 import { useAppContext } from "../context/AppContext";
-import type { HotelType } from "../../../Backend/src/shared/types";
+import type { HotelType } from "../../../shared/types";
 
 const Booking = () => {
   const { stripePromise } = useAppContext();

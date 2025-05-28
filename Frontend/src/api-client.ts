@@ -5,7 +5,7 @@ import type {
   HotelSearchResponse,
   PaymentIntentResponse,
   UserType,
-} from "../../Backend/src/shared/types";
+} from "../../shared/types";
 import type { BookingFormData } from "./form/BookingForm";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_API_URL || "";
