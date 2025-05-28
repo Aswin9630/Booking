@@ -10,15 +10,7 @@ const MyHotel = () => {
     queryFn: apiClient.viewHotel,
   });
 
-  if (!hotelData) {
-    return (
-      <span className="text-center text-2xl md:text-4xl my-5">
-        No Hotels Found
-      </span>
-    );
-  }
-
-  return hotelData && (
+  return (
     <div className="space-y-5 mx-auto container my-3 md:my-5">
       <span className="flex justify-around">
         <h1 className="text-xl md:text-3xl font-bold mb-3">My Hotels</h1>
@@ -30,7 +22,11 @@ const MyHotel = () => {
         </Link>
       </span>
 
-      <div className="grid grid-cols-1 m-10 md:m-6 gap-8">
+    {
+    (!hotelData ||  hotelData.length === 0) ? (
+      <div className="text-center text-3xl md:text-4xl my-10 font-bold">No Hotels Found</div>
+    ):(
+       <div className="grid grid-cols-1 m-10 md:m-6 gap-8">
         {hotelData.map((hotel) => (
           <div
             key={hotel._id}
@@ -63,6 +59,10 @@ const MyHotel = () => {
           </div>
         ))}
       </div>
+    )
+    }
+
+     
     </div>
   );
 };

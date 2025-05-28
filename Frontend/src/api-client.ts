@@ -97,7 +97,7 @@ export async function viewHotel(): Promise<HotelType[]> {
     throw new Error(responseBody.message);
   }
 
-  return responseBody;
+  return responseBody.hotel;
 }
 
 export const fetchMyHotelsById = async (
@@ -233,6 +233,8 @@ export const createRoombooking = async (formData: BookingFormData) => {
   );
 
   const responseBody = await response.json();
+  console.log(responseBody);
+  
   if (!response.ok) {
     throw new Error(responseBody.message || "Room Booking Failed");
   }

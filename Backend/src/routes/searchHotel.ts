@@ -53,15 +53,14 @@ router.get("/search", async (req: Request, res: Response) => {
   }
 });
 
-router.get("/",async(req:Request,res:Response)=>{
+router.get("/", async (req: Request, res: Response) => {
   try {
     const hotels = await Hotel.find().sort("-lastUpdated");
     res.status(200).json(hotels);
-    
-  } catch (error:any) {
-    res.status(500).json({message:error.message})
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
   }
-})
+});
 
 router.get(
   "/:id",
@@ -175,18 +174,18 @@ router.post(
 
       const hotel = await Hotel.findOneAndUpdate(
         { _id: req.params.hotelId },
-        { $push: { bookings: newBooking } }
+        { $push: { bookings: newBooking } },
+        {new: true}
       );
 
       if (!hotel) {
         return res.status(400).json({ message: "Hotel not found" });
       }
-      await hotel.save();
+      // await hotel.save();
 
-      res.status(200).json({ message: "Booking saved successfully" }); 
-      
-    } catch (error) {
-      res.status(500).json({ message: "Something went wrong" });
+      res.status(200).json({ message: "Booking saved successfully" });
+    } catch (error:any) {
+      res.status(500).json({ message:error.message || "Something went wrong" });
     }
   }
 );

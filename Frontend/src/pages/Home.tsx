@@ -18,12 +18,12 @@ const Home = () => {
   }
 
   const topRowHotels = hotels.slice(0,2) || [];
-  const bottomRowHotels =hotels.slice(2) || [];
+  const bottomRowHotels =hotels.slice(2,10) || [];
   return (
     <div>
       <Hero/>
       <div className="space-y-3 mx-auto container p-5">
-        <p className="text-center">Recent Hotels added by our hosts</p>
+        <h2 className="text-4xl text-center md:text-start font-semibold md:font-bold text-shadow-lg">Trending Hotels</h2>
         <div className="grid gap-4">
           <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
             {topRowHotels.map((hotel)=>(

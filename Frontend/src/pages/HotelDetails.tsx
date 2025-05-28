@@ -3,6 +3,7 @@ import * as apiClient from "../api-client"
 import { useParams } from "react-router-dom"
 import { AiFillStar } from "react-icons/ai"
 import GuestInfoForm from "../form/GuestInfoForm"
+import Spinner from "../components/Spinner"
 
 const HotelDetails = () => {
     const {hotelId} = useParams()
@@ -13,7 +14,7 @@ const HotelDetails = () => {
     });
 
     if(!hotel){
-        return <div className="text-center text-2xl my-5">No Hotel Details</div>
+        return <div className="text-center text-2xl my-5"><Spinner/></div>
     }
 
   return (

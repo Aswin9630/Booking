@@ -8,7 +8,7 @@ import type { StripeCardElement } from "@stripe/stripe-js";
 import { useSearchContext } from "../context/SearchContext";
 import * as apiClient from "../api-client";
 import { useMutation } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
 
 type Props = {
@@ -35,14 +35,16 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
   const search = useSearchContext();
   const { hotelId } = useParams();
   const { showToast } = useAppContext();
+  const navigate = useNavigate();
 
   const { mutate: bookRoom, isPending } = useMutation({
     mutationFn: apiClient.createRoombooking,
     onSuccess: () => {
       showToast({ message: "Booking Saved!", type: "SUCCESS" });
+      navigate("/");
     },
-    onError: () => {
-      showToast({ message: "Error saving booking", type: "FAILURE" });
+    onError: (error) => {
+      showToast({ message:error.message || "Error saving booking", type: "FAILURE" });
     },
   });
 

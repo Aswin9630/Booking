@@ -23,7 +23,7 @@ const Header = () => {
                 to="/my-hotels"
                 className="py-2 px-1 md:px-6 md:py-2 text-xs md:text-md text-center rounded-md text-white hover:text-gray-300 font-semibold bg-black"
               >
-                My Hotels
+                My Hotel
               </Link>
               <SignOut/>
             </>

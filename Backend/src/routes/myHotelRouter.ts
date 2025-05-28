@@ -38,7 +38,7 @@ router.get("/", verifyToken, async (req: Request, res: Response):Promise<any> =>
     if (hotels.length === 0) {
       return res.status(200).json({ message: "No Hotels Found" });
     }
-    res.status(201).json(hotels );
+    return res.status(201).json({hotel:hotels});
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }

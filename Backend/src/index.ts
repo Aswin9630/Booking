@@ -31,7 +31,7 @@ app.use("/api/hotels",searchRoutes);
 app.use("/api/my-bookings",bookingRoutes); 
 
 const serverAndDBconnect = async () => {   
-  try { 
+  try {  
     await connectDB();  
     app.listen(PORT, () =>{
       console.log("Server Successfully running on port: " + PORT);
