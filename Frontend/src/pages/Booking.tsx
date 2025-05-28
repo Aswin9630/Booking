@@ -8,6 +8,7 @@ import BookingDetailsSummary from "../components/BookingDetailsSummary";
 import Spinner from "../components/Spinner";
 import { Elements } from "@stripe/react-stripe-js";
 import { useAppContext } from "../context/AppContext";
+import type { HotelType } from "../../../Backend/src/shared/types";
 
 const Booking = () => {
   const { stripePromise } = useAppContext();
@@ -61,7 +62,7 @@ const Booking = () => {
           adultCount={search.adultCount}
           childCount={search.childCount}
           numberOfNight={numberOfNight}
-          hotel={hotel}
+          hotel={hotel as HotelType}
         />
         {userDetails && paymentIntentData?.clientSecret && stripePromise && (
           <Elements

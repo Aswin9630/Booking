@@ -6,7 +6,6 @@ import GuestSection from "./GuestSection";
 import ImageSection from "./ImageSection";
 import type { HotelType } from "../../../../Backend/src/model/hotelModel";
 import { useEffect } from "react";
-import { hotelTypes } from "../../config/hotel-options-config";
 
 export type HotelformData = {
   name: string;
@@ -40,7 +39,7 @@ const ManageHotelForm = ({onSave,isLoading, hotel} : Props) => {
 
   const onSubmit = handleSubmit((formDatajson: HotelformData) => {
     const formData = new FormData();
-    if(hotel){
+    if(hotel?._id){
       formData.append("hotelId", hotel._id)
     }
     formData.append("name", formDatajson.name);

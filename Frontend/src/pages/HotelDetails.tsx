@@ -45,7 +45,7 @@ const HotelDetails = () => {
         <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] mt-5 text-gray-700 gap-5">
             <div className="whitespace-pre-line">{hotel.description}</div>
             <div className="h-fit">
-                <GuestInfoForm hotelId={hotel._id} pricePerNight={hotel.pricePerNight}/>
+                <GuestInfoForm hotelId={hotel._id!} pricePerNight={hotel.pricePerNight}/>
             </div>
         </div>
     </div>
