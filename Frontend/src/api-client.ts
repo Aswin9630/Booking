@@ -7,7 +7,8 @@ import type {
   UserType,
 } from "../../Backend/src/shared/types";
 import type { BookingFormData } from "./form/BookingForm";
-const BACKEND_URL = import.meta.env.VITE_BACKEND_API_URL;
+
+const BACKEND_URL = import.meta.env.VITE_BACKEND_API_URL || "";
 
 export const registerAPI = async (FormData: RegisterFormData) => {
   const response = await fetch(`${BACKEND_URL}/auth/register`, {
