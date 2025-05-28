@@ -8,6 +8,7 @@ import { v2 as cloudinary } from "cloudinary";
 import hotelRoutes from "./routes/myHotelRouter";
 import searchRoutes from "./routes/searchHotel";
 import bookingRoutes from "./routes/MyBookingsRouter";
+import path from "path";
 
 cloudinary.config({
   cloud_name:process.env.CLOUDINARY_CLOUD_NAME,
@@ -24,6 +25,7 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname,"../../Frontend/dist")))
 
 app.use("/auth",userRouter);
 app.use("/api/my-hotels",hotelRoutes);
