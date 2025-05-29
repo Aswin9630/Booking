@@ -1,10 +1,10 @@
 import type { SignInFormData } from "./components/SignIn";
 import type { RegisterFormData } from "./components/SignUp";
-import type { HotelType } from "../../Backend/src/model/hotelModel";
 import type {
   HotelSearchResponse,
   PaymentIntentResponse,
   UserType,
+  HotelType
 } from "../../shared/types";
 import type { BookingFormData } from "./form/BookingForm";
 
