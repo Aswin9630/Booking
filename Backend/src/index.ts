@@ -16,7 +16,7 @@ cloudinary.config({
   api_secret:process.env.CLOUDINARY_API_KEY_SECRET
 });
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000
 const app = express();
 app.use(cookieParser())
 app.use(cors({
