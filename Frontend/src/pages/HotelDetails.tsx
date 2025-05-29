@@ -31,7 +31,7 @@ const HotelDetails = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-5">
             {hotel.imageUrls.map((image,index)=>(
                 <div key={index} className="h-[300px] w-[250px] p-5">
-                    <img src={image} alt={hotel.name} className="rounded-md w-full h-full object-cover object-center"/>
+                    <img src={image} alt={hotel.name} className="rounded-md w-full h-full object-cover object-center" loading="lazy"/>
                 </div>
             ))}
         </div>

@@ -14,6 +14,7 @@ const LatestHotelCard = ({ hotel }: Props) => {
         <img
           src={hotel.imageUrls[0]}
           alt="hotel_image"
+          loading="eager"
           className="w-full h-full  object-cover object-center"
         />
       </div>
